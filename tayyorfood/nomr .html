@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Qishki FastFood — Chotki Dizayn</title>
+  <style>
+    :root{
+      --bg1:#081129;
+      --bg2:#10293f;
+      --accent:#ffb86b;
+      --glass: rgba(255,255,255,0.06);
+      --glass-strong: rgba(255,255,255,0.09);
+      --card-glow: 0 8px 30px rgba(0,0,0,0.6);
+      --radius:18px;
+      --maxw:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,184,107,0.06), transparent), linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+
+    /* HERO / FIRST IMPACT */
+    .stage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+    .container{width:100%;max-width:var(--maxw);margin:0 auto;position:relative}
+
+    .hero-card{
+      background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:26px;padding:36px;border:1px solid rgba(255,255,255,0.04);
+      box-shadow: var(--card-glow);backdrop-filter: blur(10px);
+      display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;overflow:hidden;
+      transform:translateY(10px) scale(.98);opacity:0;
+      animation:heroIn 800ms cubic-bezier(.2,.9,.26,1) forwards 250ms;
+    }
+    @keyframes heroIn{to{transform:none;opacity:1}}
+
+    .left{
+      padding-right:10px
+    }
+    h1{font-size:44px;line-height:1.02;margin:0 0 12px;font-weight:800;letter-spacing:-0.5px}
+    .subtitle{opacity:0.9;margin-bottom:16px}
+
+    /* BIG VAV effect */
+    .vav{
+      display:inline-block;padding:8px 16px;border-radius:999px;background:linear-gradient(90deg,var(--accent),#ffd88d);color:#1a1a1a;font-weight:800;transform:translateY(6px) scale(.95);box-shadow:0 8px 30px rgba(255,184,107,0.15);
+      animation:vavPop 1100ms cubic-bezier(.2,.9,.26,1) forwards 600ms;
+    }
+    @keyframes vavPop{0%{transform:scale(.8) rotate(-6deg) translateY(12px);filter:blur(6px);opacity:0}60%{transform:scale(1.07) rotate(2deg)}100%{transform:none;opacity:1}}
+
+    /* menu preview list */
+    .items{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:14px;margin-top:14px}
+    .mini{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .28s ease, box-shadow .28s ease;
+    }
+    .mini:hover{transform:translateY(-6px);box-shadow:0 14px 40px rgba(0,0,0,0.6)}
+    .mini img{width:70px;height:56px;object-fit:cover;border-radius:10px}
+    .mini .meta{flex:1}
+    .mini .meta h4{margin:0;font-size:16px}
+    .mini .meta p{margin:3px 0 0;font-size:13px;opacity:.85}
+    .price{font-weight:800;color:var(--accent);font-size:16px}
+
+    /* RIGHT: big visual box */
+    .visual{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:16px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden
+    }
+    .visual .photo{width:100%;height:240px;border-radius:12px;background:linear-gradient(160deg,#111827, #2b3a4a);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.08);font-weight:700}
+    .visual .cta{display:flex;gap:10px;margin-top:6px}
+    .btn{padding:10px 14px;border-radius:12px;border:0;background:rgba(255,255,255,0.06);color:#fff;font-weight:700;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#ffd88d);color:#111}
+
+    /* NAV top */
+    .topbar{position:fixed;left:0;right:0;top:18px;display:flex;align-items:center;justify-content:space-between;padding:8px 20px;z-index:40}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#ffd88d);display:flex;align-items:center;justify-content:center;color:#111;font-weight:800}
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{color:rgba(255,255,255,0.9);text-decoration:none;font-weight:700}
+
+    /* MENU CARDS SECTION */
+    .menu-grid{padding:36px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;max-width:var(--maxw);margin:18px auto}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:16px;border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px);transition:transform .35s cubic-bezier(.2,.9,.26,1), box-shadow .35s;
+    }
+    .card:hover{transform:translateY(-10px) rotate(-0.5deg);box-shadow:0 24px 60px rgba(0,0,0,0.6)}
+    .card .img{height:140px;border-radius:12px;background:#111;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.06);font-weight:700;margin-bottom:10px}
+    .card h3{margin:0 0 6px}
+    .card .price{font-size:18px}
+
+    /* SNOW / PARTICLES */
+    .snowflake{position:fixed;top:-6vh;left:0;pointer-events:none;user-select:none;z-index:5;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.6));}
+
+    /* responsive tweaks */
+    @media (max-width:980px){.hero-card{grid-template-columns:1fr 320px}}
+    @media (max-width:760px){
+      .hero-card{grid-template-columns:1fr;}
+      .visual{order:-1}
+      h1{font-size:28px}
+      .mini img{width:60px;height:48px}
+      .topbar{padding:8px 12px}
+      .nav-links{display:none}
+    }
+
+    /* subtle floating animation for cards */
+    .float{animation:floaty 6s ease-in-out infinite}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+
+    /* tiny decorative gradient line */
+    .accent-line{height:6px;width:56px;border-radius:999px;background:linear-gradient(90deg,var(--accent),#ffd88d);margin:12px 0}
+
+    /* footer */
+    footer{opacity:0.9;text-align:center;padding:28px 12px}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo" >TF</div>
+      <div>
+        <div style="font-weight:800">Tayyor Food</div>
+        <div style="font-size:12px;opacity:.75">Issiq taomlar</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#lavash">Lavash</a>
+      <a href="#donar">Donar</a>
+      <a href="#hotdog">Hot-dog</a>
+      <a href="#ichimlik">Ichimlik</a>
+    </div>
+  </div>
+
+  <main class="stage">
+    <div class="container">
+      <section class="hero-card">
+        <div class="left">
+          <div class="accent-line"></div>
+          <h1>Qishga maxsus — <span class="vav">Siz uchun!</span></h1>
+          <div class="subtitle">Yeganda darrov taassurot qoldiruvchi taom. Issiq, mazali va ko‘zga yoqadi.</div>
+
+          <div class="items">
+            <div class="mini float" onclick="scrollToSection('lavash')">
+              <img src="./img/631527-633644.webp" alt="Lavash (joylang)" />
+              <div class="meta">
+                <h4>Lavash</h4>
+                <p>Yumshoq, to‘la go‘sht</p>
+              </div>
+              <div class="price">28 000 so‘m</div>
+            </div>
+
+            <div class="mini float" onclick="scrollToSection('donar')">
+              <img src="./img/2f86c9a555f98675d62b8a8c82da2737.jpg" alt="Donar (joylang)" />
+              <div class="meta">
+                <h4>Donar</h4>
+                <p>Maxsus achchiq sous bilan</p>
+              </div>
+              <div class="price">32 000 so‘m</div>
+            </div>
+
+            <div class="mini float" onclick="scrollToSection('hotdog')">
+              <img src="./img/photo_2025-11-28_12-37-10.jpg" alt="Hot-dog (joylang)" />
+              <div class="meta">
+                <h4>Hot-Dog</h4>
+                <p>Silliq bulka & issiq kolbasa</p>
+              </div>
+              <div class="price">18 000 so‘m</div>
+            </div>
+
+            <div class="mini float" onclick="scrollToSection('ichimlik')">
+              <img src="./img/ce8a878v1htd23airm6g.jpg" alt="Ichimlik (joylang)" />
+              <div class="meta">
+                <h4>Ichimliklar</h4>
+                <p>Sovuq va issiq variantlar</p>
+              </div>
+              <div class="price">10 000 — 15 000 so‘m</div>
+            </div>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+            <button class="btn">Menyu to'liq</button>
+            <button class="btn primary">Buyurtma berish</button>
+          </div>
+        </div>
+
+        <aside class="visual">
+          <div class="photo"  id="heroPhoto">
+             <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80" alt="Hero Taom" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+          </div>
+          <div style="font-size:13px;opacity:.9">Rasmni almashtirish uchun <code>src</code> attributini o'zgartiring</div>
+          <div class="cta">
+            <button class="btn">Telegram orqali</button>
+            <button class="btn">Kontakt</button>
+          </div>
+        </aside>
+      </section>
+
+      <!-- MENU KARTALARI -->
+      <div class="menu-grid">
+        <article class="card" id="lavash">
+          <div class="img">RASM (joylang)</div>
+          <h3>Lavash</h3>
+          <p>Yumshoq non, mazali go'sht va maxsus sous.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">28 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Istalgan qo'shimchalar bilan</div>
+          </div>
+        </article>
+
+        <article class="card" id="donar">
+          <div class="img">RASM (joylang)</div>
+          <h3>Donar</h3>
+          <p>Qizil go'sht va maxfiy marinad — juda mazali.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">32 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Eng mashhur taom</div>
+          </div>
+        </article>
+
+        <article class="card" id="hotdog">
+          <div class="img">RASM (joylang)</div>
+          <h3>Hot-Dog</h3>
+          <p>Oddiy va tez — baribir sevimli.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">18 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Ovqatga qo'shimcha: kartoshka</div>
+          </div>
+        </article>
+
+        <article class="card" id="ichimlik">
+          <div class="img">RASM (joylang)</div>
+          <h3>Ichimliklar</h3>
+          <p>Gazlangan, sharbat va issiq choy.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">10 000 — 15 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Turli o'lchamlar</div>
+          </div>
+        </article>
+
+        
+      </div>
+      <div class="menu-grid">
+        <article class="card" id="lavash">
+          <div class="img">RASM (joylang)</div>
+          <h3>Lavash</h3>
+          <p>Yumshoq non, mazali go'sht va maxsus sous.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">28 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Istalgan qo'shimchalar bilan</div>
+          </div>
+        </article>
+
+        <article class="card" id="donar">
+          <div class="img">RASM (joylang)</div>
+          <h3>Donar</h3>
+          <p>Qizil go'sht va maxfiy marinad — juda mazali.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">32 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Eng mashhur taom</div>
+          </div>
+        </article>
+
+        <article class="card" id="hotdog">
+          <div class="img">RASM (joylang)</div>
+          <h3>Hot-Dog</h3>
+          <p>Oddiy va tez — baribir sevimli.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">18 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Ovqatga qo'shimcha: kartoshka</div>
+          </div>
+        </article>
+
+        <article class="card" id="ichimlik">
+          <div class="img">RASM (joylang)</div>
+          <h3>Ichimliklar</h3>
+          <p>Gazlangan, sharbat va issiq choy.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">10 000 — 15 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Turli o'lchamlar</div>
+          </div>
+        </article>
+
+        
+      </div>
+<div class="menu-grid">
+        <article class="card" id="lavash">
+          <div class="img">RASM (joylang)</div>
+          <h3>Lavash</h3>
+          <p>Yumshoq non, mazali go'sht va maxsus sous.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">28 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Istalgan qo'shimchalar bilan</div>
+          </div>
+        </article>
+
+        <article class="card" id="donar">
+          <div class="img">RASM (joylang)</div>
+          <h3>Donar</h3>
+          <p>Qizil go'sht va maxfiy marinad — juda mazali.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">32 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Eng mashhur taom</div>
+          </div>
+        </article>
+
+        <article class="card" id="hotdog">
+          <div class="img">RASM (joylang)</div>
+          <h3>Hot-Dog</h3>
+          <p>Oddiy va tez — baribir sevimli.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">18 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Ovqatga qo'shimcha: kartoshka</div>
+          </div>
+        </article>
+
+        <article class="card" id="ichimlik">
+          <div class="img">RASM (joylang)</div>
+          <h3>Ichimliklar</h3>
+          <p>Gazlangan, sharbat va issiq choy.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+            <div class="price">10 000 — 15 000 so'm</div>
+            <div style="font-size:12px;opacity:.8">Turli o'lchamlar</div>
+          </div>
+        </article>
+
+        
+      </div>
+    
+    </div>
+  </main>
+
+  <!-- Snow generator (lightweight, performant) -->
+  <canvas id="snow" class="snowflake"></canvas>
+
+  <script>
+    // smooth scroll helper
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({top,behavior:'smooth'});
+    }
+
+    // Simple canvas snow (tiny and efficient)
+    const canvas = document.getElementById('snow');
+    const ctx = canvas.getContext('2d');
+    let w,h,particles=[];
+    function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
+    window.addEventListener('resize',resize);resize();
+    function initParticles(){particles = Array.from({length: Math.floor(window.innerWidth/18)}, ()=>({x:Math.random()*w,y:Math.random()*h, r:Math.random()*3+1, d:Math.random()*1.5+0.5}));}
+    initParticles();
+    function draw(){ctx.clearRect(0,0,w,h);ctx.fillStyle='rgba(255,255,255,0.9)';particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y += p.d; p.x += Math.sin(p.y*0.01)*0.6; if(p.y>h+10){p.y=-10;p.x=Math.random()*w}});requestAnimationFrame(draw)}
+    draw();
+
+    // Allow easy image replacement: find all placeholders and set a subtle outline
+    document.querySelectorAll('.img, #heroPhoto').forEach(el=>{el.style.border='1px dashed rgba(255,255,255,0.05)';el.style.display='flex';el.style.alignItems='center';el.style.justifyContent='center'});
+
+    // small enter animations for card list
+    document.querySelectorAll('.card').forEach((c,i)=>{c.style.opacity=0;c.style.transform='translateY(16px)';setTimeout(()=>{c.style.transition='all .6s cubic-bezier(.2,.9,.26,1)';c.style.opacity=1;c.style.transform='none'},i*120)});
+  </script>
+</body>
+</html>
